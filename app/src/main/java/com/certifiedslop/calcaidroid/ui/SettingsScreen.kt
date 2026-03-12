@@ -19,9 +19,6 @@ fun SettingsScreen(
     onNavigateBack: () -> Unit
 ) {
     val provider by viewModel.provider.collectAsState()
-    val modelString by viewModel.modelString.collectAsState()
-    val systemPrompt by viewModel.systemPrompt.collectAsState()
-    val ollamaEndpoint by viewModel.ollamaEndpoint.collectAsState()
     var expanded by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -89,7 +86,7 @@ fun SettingsScreen(
             if (provider == ApiProvider.OLLAMA) {
                 Text("Ollama Endpoint", style = MaterialTheme.typography.titleMedium)
                 OutlinedTextField(
-                    value = ollamaEndpoint,
+                    value = viewModel.ollamaEndpoint,
                     onValueChange = { viewModel.updateOllamaEndpoint(it) },
                     label = { Text("e.g. http://10.0.2.2:11434") },
                     modifier = Modifier.fillMaxWidth()
@@ -104,7 +101,7 @@ fun SettingsScreen(
             }
             Text("Model / Endpoint", style = MaterialTheme.typography.titleMedium)
             OutlinedTextField(
-                value = modelString,
+                value = viewModel.modelString,
                 onValueChange = { viewModel.updateModel(it) },
                 label = { Text(modelLabel) },
                 modifier = Modifier.fillMaxWidth()
@@ -113,7 +110,7 @@ fun SettingsScreen(
             // System Prompt
             Text("System Prompt", style = MaterialTheme.typography.titleMedium)
             OutlinedTextField(
-                value = systemPrompt,
+                value = viewModel.systemPrompt,
                 onValueChange = { viewModel.updateSystemPrompt(it) },
                 label = { Text("How the AI should behave") },
                 modifier = Modifier.fillMaxWidth(),
